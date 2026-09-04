@@ -8,9 +8,31 @@ pensando" (cicla: pensar → escribir → leer → trabajar).
 > ⚠️ **Privado / uso interno Vauxoo.** Contiene los assets de Vakyro, cuya
 > política de marca es *internal-only*. No hacer público ni redistribuir.
 > Se complementa con el theme público
-> [vauxoo.vauxoo-theme](https://marketplace.visualstudio.com/items?itemName=vauxoo.vauxoo-theme),
-> que pinta el resto de VSCode (y gran parte del webview de Claude) vía
-> variables `--vscode-*`.
+> [vauxoo.vauxoo-theme](https://marketplace.visualstudio.com/items?itemName=vauxoo.vauxoo-theme)
+> (Dark / Light / Vakyro), que pinta el resto de VSCode (y gran parte del
+> webview de Claude) vía variables `--vscode-*`.
+
+## Resultado
+
+Panel de sesiones con semántica de actividad y el glifo ❖ del isotipo:
+
+<img src="docs/session-panel.png" width="420" alt="Panel de sesiones parcheado">
+
+Vakyro como indicador de "Claude pensando" (cicla foco → lápiz → libro →
+laptop) y el input con el acento rojo Vauxoo:
+
+![Indicador Vakyro e input](docs/thinking-indicator.png)
+
+Los 4 estados del ciclo:
+
+<p>
+<img src="icons/preview-think.png" width="120" alt="pensar">
+<img src="icons/preview-write.png" width="120" alt="escribir">
+<img src="icons/preview-read.png" width="120" alt="leer">
+<img src="icons/preview-work.png" width="120" alt="trabajar">
+</p>
+
+*(Renders generados desde los tokens/SVG reales del parche — `docs/*.svg`.)*
 
 ## Instalación (macOS)
 
