@@ -69,6 +69,21 @@ estados del spinner son el `vakyro.svg` base + un overlay dibujado antes de
 `</svg>` (foco/lápiz/libro/laptop) con contorno `#1C1B19` grosor 8, estilo
 flat de marca.
 
+## Warp y el CLI vakyro
+
+- `warp/*.yaml` son los themes de Warp (paleta ANSI por variante) con
+  `background_image` apuntando a `warp/*-bg.png` (Vakyro en la esquina
+  inferior derecha, opacidad horneada en el PNG). Warp NO soporta animación
+  en themes — no intentes meterla ahí.
+- `bin/vakyro` reproduce la animación en ANSI truecolor leyendo
+  `bin/frames.json`. Para regenerar frames (p.ej. tras editar un SVG):
+  renderiza cada `icons/vakyro-<estado>.svg` sobre un rect croma `#FF00FF`
+  a 176×176 con Chrome headless, convierte a BMP con `sips`, y muestrea 1 de
+  cada 4 px (SIN resample, para no mezclar el croma) emitiendo half-blocks
+  `▀`/`▄`; un pixel es "transparente" si es magenta-ish
+  (r>100, b>100, g<150, r-g>40, b-g>40 — calibrado para no comerse los
+  morados #6F5198/#7A5FA0 ni el rosa #F3C5D9 del personaje).
+
 ## Política de marca
 
 Vakyro es **internal-only**: sus SVG no deben salir de este repo privado ni
