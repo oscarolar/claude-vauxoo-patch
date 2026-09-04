@@ -1,0 +1,135 @@
+/*
+ * Override de visibilidad para el panel de sesiones de Claude Code (VSCode).
+ * Se anexa al final de webview/index.css de la extensión con apply.sh.
+ * Usa selectores [class*="..."] para sobrevivir cambios en los hashes CSS-modules.
+ *
+ * Paleta basada en los brand assets de Claude:
+ *   terracota #D97757 (borde del input de Claude), periwinkle #6C70E5
+ *   (pill "Remote Control"), ámbar y kraft como acentos compatibles.
+ * Los tintes se mezclan con variables del tema para funcionar en light/dark.
+ */
+
+:root {
+  --ccspp-purple: #6C70E5;
+  --ccspp-orange: #D97757;
+  --ccspp-amber:  #E2B93B;
+  --ccspp-kraft:  #D4A27F;
+}
+
+/* ── Encabezados de grupo: banda morada con degradado, sticky al hacer scroll ── */
+[class*="sessionsList_"] > [class*="groupHeader_"] {
+  position: sticky;
+  top: -1px;
+  z-index: 5;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--ccspp-purple) 30%, var(--app-primary-background)),
+    color-mix(in srgb, var(--ccspp-purple) 10%, var(--app-primary-background))
+  );
+  border-left: 3px solid var(--ccspp-purple);
+  border-radius: 4px 6px 6px 4px;
+  margin-top: 14px;
+  height: 30px;
+}
+[class*="sessionsList_"] > [class*="groupHeader_"]:first-child {
+  margin-top: 2px;
+}
+[class*="sessionsList_"] > [class*="groupHeader_"]:hover {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--ccspp-purple) 45%, var(--app-primary-background)),
+    color-mix(in srgb, var(--ccspp-purple) 18%, var(--app-primary-background))
+  );
+}
+[class*="groupName_"] {
+  color: color-mix(in srgb, var(--ccspp-purple) 40%, var(--app-primary-foreground));
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.8em;
+}
+[class*="groupChevron_"] {
+  color: var(--ccspp-purple);
+}
+[class*="groupCount_"] {
+  background: var(--ccspp-orange);
+  color: #fff;
+  font-weight: 700;
+  min-width: 12px;
+  text-align: center;
+}
+
+/* ── Sesiones: indentadas bajo su grupo, riel morado de pertenencia ── */
+[class*="sessionsList_"] > [class*="sessionItem_"] {
+  margin-left: 14px;
+  width: calc(100% - 14px);
+  border-left: 2px solid color-mix(in srgb, var(--ccspp-purple) 35%, transparent);
+  border-radius: 0 6px 6px 0;
+}
+[class*="sessionsList_"] > [class*="sessionItem_"]:hover {
+  background: color-mix(in srgb, var(--ccspp-purple) 14%, transparent);
+}
+
+/* ── Sesión con agente corriendo: terracota Claude, fila tintada y pulso ── */
+[class*="sessionItem_"]:has([class*="statusDotRunning_"]) {
+  background: color-mix(in srgb, var(--ccspp-orange) 16%, transparent);
+  border-left: 3px solid var(--ccspp-orange);
+}
+[class*="sessionItem_"]:has([class*="statusDotRunning_"]) [class*="sessionName_"] {
+  font-weight: 600;
+}
+[class*="statusDotRunning_"] {
+  background: var(--ccspp-orange);
+  animation: ccspp-pulse 1.6s ease-out infinite;
+}
+
+/* ── Esperando input: ámbar ── */
+[class*="sessionItem_"]:has([class*="statusDotWaiting_"]) {
+  background: color-mix(in srgb, var(--ccspp-amber) 14%, transparent);
+  border-left: 3px solid var(--ccspp-amber);
+}
+[class*="statusDotWaiting_"] {
+  background: var(--ccspp-amber);
+}
+
+/* ── Con actividad sin leer: acento morado ── */
+[class*="sessionItem_"]:has([class*="statusDotUnread_"]) {
+  border-left: 3px solid var(--ccspp-purple);
+}
+[class*="statusDotUnread_"] {
+  background: var(--ccspp-purple);
+}
+
+/* ── Puntos de estado: más grandes ── */
+[class*="sessionsList_"] [class*="statusDot_"] {
+  width: 9px;
+  height: 9px;
+}
+[class*="statusDotIdle_"] {
+  opacity: 0.55;
+}
+@keyframes ccspp-pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ccspp-orange) 60%, transparent); }
+  70%  { box-shadow: 0 0 0 6px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+/* ── Sesión abierta en la pestaña actual: morado con barra terracota ── */
+[class*="sessionItem_"][class*="active_"] {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--ccspp-purple) 48%, var(--app-primary-background)),
+    color-mix(in srgb, var(--ccspp-purple) 20%, var(--app-primary-background))
+  );
+  border-left: 3px solid var(--ccspp-orange);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ccspp-purple) 55%, transparent);
+}
+[class*="sessionItem_"][class*="active_"] [class*="sessionName_"] {
+  font-weight: 600;
+}
+
+/* ── Selección múltiple (highlighted): anillo morado ── */
+[class*="sessionItem_"][class*="selected_"] {
+  background: color-mix(in srgb, var(--ccspp-purple) 28%, transparent);
+  outline: 1px solid var(--ccspp-purple);
+  outline-offset: -1px;
+}
