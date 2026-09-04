@@ -87,3 +87,19 @@ rojo/azul-grisáceo; con **Vauxoo Vakyro** sale morado/rosa — sin tocar nada.
 
 Ver `AGENTS.md` para mantenimiento asistido por agentes (qué verificar cuando
 un update de la extensión rompe un selector, cómo regenerar los data-URIs).
+
+## Warp: el set completo
+
+`install.sh` también instala (si detecta `~/.warp`):
+
+- **3 themes de Warp** con la paleta semántica de cada variante VSCode y
+  **Vakyro como marca de agua** en el fondo de la terminal
+  (`Vauxoo Dark · Vakyro`, `Vauxoo Light · Vakyro`, `Vauxoo Vakyro · Vakyro`).
+  Actívalos en Warp → Settings → Appearance → Theme.
+- **El comando `vakyro`**: la animación del patch migrada a ANSI art
+  truecolor — cicla pensar → escribir → leer → trabajar igual que el
+  indicador de Claude. `vakyro` (loop), `vakyro --once`, `vakyro --frame 0-3`.
+  Los frames se regeneran desde los SVG con croma magenta (ver AGENTS.md).
+
+Nota honesta: los themes de Warp son YAML estático — no soportan animación;
+por eso la animación vive como CLI y el fondo como imagen fija.

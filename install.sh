@@ -48,4 +48,23 @@ else
   echo "AVISO: no es macOS; instala un watcher equivalente (systemd user path unit) que ejecute $DIR/apply.sh"
 fi
 
+# Themes de Warp (con Vakyro de fondo) si Warp está instalado
+if [ -d "$HOME/.warp" ] && [ -d "$DIR/warp" ]; then
+  mkdir -p "$HOME/.warp/themes"
+  cp "$DIR"/warp/*.yaml "$DIR"/warp/*.png "$HOME/.warp/themes/" 2>/dev/null || true
+  echo "themes de Warp (con Vakyro) instalados en ~/.warp/themes"
+fi
+
+# CLI vakyro (animación ANSI) al PATH si hay un bin escribible
+if [ -f "$DIR/bin/vakyro" ]; then
+  chmod +x "$DIR/bin/vakyro"
+  for B in /opt/homebrew/bin /usr/local/bin "$HOME/.local/bin"; do
+    if [ -d "$B" ] && [ -w "$B" ]; then
+      ln -sf "$DIR/bin/vakyro" "$B/vakyro"
+      echo "comando 'vakyro' enlazado en $B"
+      break
+    fi
+  done
+fi
+
 "$DIR/apply.sh"
