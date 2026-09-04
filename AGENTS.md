@@ -51,6 +51,18 @@ reemplazando archivos de `resources/`.
 - `background-image` no interpola en keyframes: los ciclos usan pares de
   porcentajes (`0%, 24.99%`) para sostener cada cuadro.
 
+## Flavors de íconos según theme
+
+apply.sh lee `workbench.colorTheme` del settings.json de VSCode: theme
+"Vauxoo Vakyro" (o cualquier theme no-Vauxoo) → íconos de la mascota
+(vakyro-*); themes "Vauxoo Dark"/"Vauxoo Light" → íconos del isotipo
+(isotipo-*). El swap cubre los archivos de resources/ Y el spark del webview
+(reemplazo del b64 en la sección spark al construir el bloque CSS). El
+spinner animado es SIEMPRE Vakyro. El LaunchAgent también vigila el
+settings.json, así el cambio de theme re-aplica solo; los íconos de archivos
+requieren reiniciar VSCode completo (Cmd+Q), no solo Reload Window — VSCode
+los cachea.
+
 ## Si un update rompe algo
 
 1. Corre `./apply.sh`; si dice "al día"/"parcheado" el CSS está. El problema

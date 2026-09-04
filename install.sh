@@ -29,6 +29,7 @@ if [ "$(uname)" = "Darwin" ]; then
 	<key>WatchPaths</key>
 	<array>
 		<string>$HOME/.vscode/extensions</string>
+		<string>$HOME/Library/Application Support/Code/User/settings.json</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
