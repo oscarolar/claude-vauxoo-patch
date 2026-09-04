@@ -90,6 +90,7 @@ flat de marca.
 
 ## Política de marca
 
-Vakyro es **internal-only**: sus SVG no deben salir de este repo privado ni
-publicarse en el theme del Marketplace. El theme público
-(github.com/Vauxoo/vauxoo-theme) lleva solo colores.
+El manual marcaba a Vakyro como internal-only, pero el 2026-09-04 Oscar
+(COO) autorizó publicar sus assets: las variantes Warp con marca de agua
+viven también en el repo público github.com/Vauxoo/vauxoo-theme (warp/). El
+paquete del Marketplace (vsix) sigue llevando solo colores.
