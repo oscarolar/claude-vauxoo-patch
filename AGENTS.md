@@ -1,8 +1,12 @@
 # Instrucciones para agentes (Claude Code y similares)
 
 Este repo parcha la extensión `anthropic.claude-code` de VSCode. Léelo completo
-antes de tocar nada. Regla de oro: **nunca edites `webview/index.js`** — todo
-se logra anexando CSS y reemplazando archivos de `resources/`.
+antes de tocar nada. Regla de oro: **no edites lógica de `webview/index.js`**. La única
+excepción sancionada es el paso "monaco" de apply.sh: reemplaza literales hex
+de los themes vs/vs-dark de Monaco (colores de los code snippets del chat)
+reescribiendo SIEMPRE desde `index.js.orig` — idempotente, reversible con
+--remove, y sin tocar código. Todo lo demás se logra anexando CSS y
+reemplazando archivos de `resources/`.
 
 ## Anatomía
 

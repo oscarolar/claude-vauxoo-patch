@@ -36,6 +36,42 @@ open(target, "w").write(css)
 print(("parcheado: " if mode != "--remove" else "removido:  ") + target)
 PY
 
+  # Themes Monaco de los code snippets → paleta Vauxoo (con respaldo .orig).
+  # Los colores de vs/vs-dark son literales hex en index.js; se reescribe
+  # SIEMPRE desde el .orig, así es idempotente y --remove solo restaura.
+  IJS="${f%.css}.js"
+  if [ "$MODE" != "--remove" ]; then
+    [ -f "$IJS.orig" ] || cp "$IJS" "$IJS.orig"
+    python3 - "$IJS" <<'PY'
+import sys
+target = sys.argv[1]
+js = open(target + ".orig").read()
+DARK = {  # Monaco vs-dark -> Vauxoo Dark
+ "D4D4D4":"D6DAE0", "1E1E1E":"282C2F", "569CD6":"E11E4D", "C586C0":"9B7BC8",
+ "CE9178":"82BCCE", "608B4E":"7A8288", "B5CEA8":"E9BE44", "3DC9B0":"E4A900",
+ "9CDCFE":"DCEFFE", "74B0DF":"D6DAE0", "DCDCDC":"95999F", "f44747":"E11E4D",
+ "B46695":"9B7BC8",
+}
+LIGHT = {  # Monaco vs (light) -> Vauxoo Light
+ "0000FF":"AC0340", "AF00DB":"67498E", "A31515":"3D7A99", "008000":"95999F",
+ "098658":"9E7000", "008080":"B77800", "800000":"AC0340", "0451A5":"3D7A99",
+ "001188":"455A64", "dd0000":"AC0340", "cd3131":"AC0340", "863B00":"B77800",
+}
+total = 0
+for a, b in {**DARK, **LIGHT}.items():
+    for qa, qb in ((f'"{a}"', f'"{b}"'), (f'"#{a}"', f'"#{b}"')):
+        n = js.count(qa)
+        if n:
+            js = js.replace(qa, qb)
+            total += n
+open(target, "w").write(js)
+print(f"monaco:    {target} ({total} colores reemplazados)")
+PY
+  elif [ -f "$IJS.orig" ]; then
+    mv "$IJS.orig" "$IJS"
+    echo "monaco restaurado: $IJS"
+  fi
+
   # Íconos Vakyro sobre los recursos de la extensión (con respaldo .orig)
   RES="${f%/webview/index.css}/resources"
   if [ "$MODE" != "--remove" ]; then

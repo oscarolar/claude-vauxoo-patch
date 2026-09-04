@@ -212,3 +212,10 @@ html {
 [class*="spark_"] path, [class*="sparkIcon_"] path {
   display: none;
 }
+
+/* ══ Prompts del usuario ya enviados: resaltados con el acento del theme ══ */
+[class*="userMessage_"] {
+  background: color-mix(in srgb, var(--vxspp-accent) 12%, var(--app-input-background));
+  border: 1px solid color-mix(in srgb, var(--vxspp-accent) 40%, transparent);
+  border-left: 3px solid var(--vxspp-accent);
+}
