@@ -34,6 +34,11 @@ se logra anexando CSS y reemplazando archivos de `resources/`.
 - Colores de marca Claude: variables en `html{}` del index.css
   (`--app-claude-orange` etc.). Tres usos tienen el hex literal `#d97757`
   (checkbox\_, suggestionBullet\_) y se pisan aparte.
+- El webview recibe TODAS las variables `--vscode-*` del theme activo: la
+  paleta del parche (`--vxspp-*` en `:root`) hereda de ellas con fallback
+  Vauxoo. Si cambias un rol, mantén el patrón
+  `var(--vscode-<token>, <hexVauxoo>)` para que Dark/Light/Vakyro (y
+  cualquier theme) lo pinten solos.
 - El CSP del webview permite `img-src data:` — los data-URIs funcionan.
 - Los sparks de headers son SVG inline: se ocultan sus `path` y se pinta
   Vakyro como `background-image` del propio `<svg>`.

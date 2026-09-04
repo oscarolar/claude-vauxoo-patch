@@ -78,5 +78,12 @@ y desinstala el LaunchAgent.
 Semántica de estados en el panel: **verde** = agente corriendo (pulsa),
 **dorado** = requiere al usuario, **rojo tenue** = detenida, **azul** = sin leer.
 
+**El parche hereda del theme activo**: la paleta apunta a variables
+`--vscode-*` (acento = `statusBar.background`, estructura =
+`list.activeSelectionBackground`, waiting = `editorWarning.foreground`,
+running/unread = `charts.green`/`charts.blue`, badges y focus del theme), con
+los hex Vauxoo como fallback. Con **Vauxoo Dark/Light** el panel sale
+rojo/azul-grisáceo; con **Vauxoo Vakyro** sale morado/rosa — sin tocar nada.
+
 Ver `AGENTS.md` para mantenimiento asistido por agentes (qué verificar cuando
 un update de la extensión rompe un selector, cómo regenerar los data-URIs).

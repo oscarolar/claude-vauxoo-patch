@@ -10,13 +10,19 @@
  * La variante Claude anterior quedó en override-claude.css.
  */
 
+/* Paleta heredada del theme activo de VSCode (Vauxoo Dark/Light/Vakyro u
+ * otro): el webview recibe las variables --vscode-* del theme, así que cada
+ * rol apunta a un color semántico del theme con el hex Vauxoo de fallback. */
 :root {
-  --vxspp-rojo:       #AC0340;
-  --vxspp-gris:       #455A64;
-  --vxspp-dorado:     #E4A900;
-  --vxspp-verde:      #3AA55D;
-  --vxspp-azul:       #5498CC;
-  --vxspp-azul-claro: #DCEFFE;
+  --vxspp-accent:     var(--vscode-statusBar-background, #AC0340);
+  --vxspp-estructura: var(--vscode-list-activeSelectionBackground, #455A64);
+  --vxspp-dorado:     var(--vscode-editorWarning-foreground, #E4A900);
+  --vxspp-verde:      var(--vscode-charts-green, #3AA55D);
+  --vxspp-azul:       var(--vscode-charts-blue, #5498CC);
+  --vxspp-rojo-idle:  var(--vscode-errorForeground, #AC0340);
+  --vxspp-badge-bg:   var(--vscode-badge-background, #AC0340);
+  --vxspp-badge-fg:   var(--vscode-badge-foreground, #ffffff);
+  --vxspp-ring:       var(--vscode-focusBorder, #AC0340);
 }
 
 /* ── Encabezados de grupo: banda azul grisáceo con barra rojo Vauxoo, sticky ── */
@@ -24,8 +30,8 @@
   position: sticky;
   top: -1px;
   z-index: 5;
-  background: color-mix(in srgb, var(--vxspp-gris) 30%, var(--app-primary-background));
-  border-left: 3px solid var(--vxspp-rojo);
+  background: color-mix(in srgb, var(--vxspp-estructura) 30%, var(--app-primary-background));
+  border-left: 3px solid var(--vxspp-accent);
   border-radius: 4px 6px 6px 4px;
   margin-top: 14px;
   height: 30px;
@@ -34,20 +40,20 @@
   margin-top: 2px;
 }
 [class*="sessionsList_"] > [class*="groupHeader_"]:hover {
-  background: color-mix(in srgb, var(--vxspp-gris) 45%, var(--app-primary-background));
+  background: color-mix(in srgb, var(--vxspp-estructura) 45%, var(--app-primary-background));
 }
 [class*="groupName_"] {
-  color: color-mix(in srgb, var(--vxspp-azul-claro) 45%, var(--app-primary-foreground));
+  color: color-mix(in srgb, var(--vxspp-estructura) 45%, var(--app-primary-foreground));
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-size: 0.8em;
 }
 [class*="groupChevron_"] {
-  color: var(--vxspp-rojo);
+  color: var(--vxspp-accent);
 }
 [class*="groupCount_"] {
-  background: var(--vxspp-rojo);
-  color: #fff;
+  background: var(--vxspp-badge-bg);
+  color: var(--vxspp-badge-fg);
   font-weight: 700;
   min-width: 12px;
   text-align: center;
@@ -57,11 +63,11 @@
 [class*="sessionsList_"] > [class*="sessionItem_"] {
   margin-left: 14px;
   width: calc(100% - 14px);
-  border-left: 2px solid color-mix(in srgb, var(--vxspp-gris) 55%, transparent);
+  border-left: 2px solid color-mix(in srgb, var(--vxspp-estructura) 55%, transparent);
   border-radius: 0 6px 6px 0;
 }
 [class*="sessionsList_"] > [class*="sessionItem_"]:hover {
-  background: color-mix(in srgb, var(--vxspp-azul-claro) 14%, transparent);
+  background: color-mix(in srgb, var(--vxspp-estructura) 25%, transparent);
 }
 
 /* ── Indicador de estado: glifo ❖ (isotipo Vauxoo) en vez de punto ── */
@@ -102,7 +108,7 @@
 
 /* ── Detenida / inactiva: rojo Vauxoo tenue (solo el glifo, sin alarmar) ── */
 [class*="statusDotIdle_"] {
-  color: var(--vxspp-rojo);
+  color: var(--vxspp-rojo-idle);
   opacity: 0.55;
 }
 
@@ -122,9 +128,9 @@
 
 /* ── Sesión abierta en la pestaña actual: azul grisáceo sólido + barra roja ── */
 [class*="sessionItem_"][class*="active_"] {
-  background: color-mix(in srgb, var(--vxspp-gris) 50%, var(--app-primary-background));
-  border-left: 3px solid var(--vxspp-rojo);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--vxspp-azul-claro) 40%, transparent);
+  background: color-mix(in srgb, var(--vxspp-estructura) 50%, var(--app-primary-background));
+  border-left: 3px solid var(--vxspp-accent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--vxspp-ring) 40%, transparent);
 }
 [class*="sessionItem_"][class*="active_"] [class*="sessionName_"] {
   font-weight: 600;
@@ -132,8 +138,8 @@
 
 /* ── Selección múltiple: anillo rojo Vauxoo ── */
 [class*="sessionItem_"][class*="selected_"] {
-  background: color-mix(in srgb, var(--vxspp-azul-claro) 22%, transparent);
-  outline: 1px solid var(--vxspp-rojo);
+  background: color-mix(in srgb, var(--vxspp-estructura) 35%, transparent);
+  outline: 1px solid var(--vxspp-ring);
   outline-offset: -1px;
 }
 
@@ -143,21 +149,21 @@
  * Todo lo demás (pills, badges, botones) hereda de --vscode-* y lo pinta
  * el theme "Vauxoo Dark" de VSCode. */
 html {
-  --app-claude-orange: var(--vxspp-rojo);            /* borde del input, acento, spinner */
-  --app-claude-clay-button-orange: #BC1C38;          /* hover cálido Vauxoo */
+  --app-claude-orange: var(--vxspp-accent);            /* borde del input, acento, spinner */
+  --app-claude-clay-button-orange: color-mix(in srgb, var(--vxspp-accent) 80%, #ffffff);          /* hover cálido Vauxoo */
   --app-warning-accent: var(--vxspp-dorado);
-  --app-banner-tint: var(--vxspp-gris);
+  --app-banner-tint: var(--vxspp-estructura);
 }
 
 /* Usos con el terracota hardcodeado como literal (no pasan por la variable) */
 [class*="checkbox_"] {
-  background: color-mix(in srgb, var(--vxspp-rojo) 10%, transparent) !important;
+  background: color-mix(in srgb, var(--vxspp-accent) 10%, transparent) !important;
 }
 [class*="checkbox_"]:hover {
-  background: color-mix(in srgb, var(--vxspp-rojo) 20%, transparent) !important;
+  background: color-mix(in srgb, var(--vxspp-accent) 20%, transparent) !important;
 }
 [class*="suggestionBullet_"] {
-  background: color-mix(in srgb, var(--vxspp-rojo) 80%, transparent) !important;
+  background: color-mix(in srgb, var(--vxspp-accent) 80%, transparent) !important;
 }
 
 /* ══ Vakyro como indicador animado de "Claude pensando" ══
